@@ -1,0 +1,73 @@
+<%- include('../layouts/header', { active: 'create' }) %>
+
+<div class="mb-4">
+  <h1 class="page-heading">Create Blog</h1>
+  <p class="page-subheading mb-0">Fill in the details below to publish a new blog post</p>
+</div>
+
+<div class="glass-card p-4" style="max-width: 720px;">
+  <% if (errors && errors.length) { %>
+    <% errors.forEach(function(err) { %>
+      <div class="alert alert-glass alert-danger mb-2" role="alert"><%= err.msg %></div>
+    <% }) %>
+  <% } %>
+
+  <form action="/blog/create" method="POST" novalidate>
+    <div class="mb-3">
+      <label for="title" class="form-label">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        name="title"
+        placeholder="Enter blog title"
+        value="<%= formData.title || '' %>"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="category" class="form-label">Category</label>
+      <input
+        type="text"
+        class="form-control"
+        id="category"
+        name="category"
+        placeholder="e.g. Technology, Lifestyle"
+        value="<%= formData.category || '' %>"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="imageUrl" class="form-label">Image URL</label>
+      <input
+        type="text"
+        class="form-control"
+        id="imageUrl"
+        name="imageUrl"
+        placeholder="https://example.com/image.jpg"
+        value="<%= formData.imageUrl || '' %>"
+      >
+    </div>
+
+    <div class="mb-4">
+      <label for="description" class="form-label">Description</label>
+      <textarea
+        class="form-control"
+        id="description"
+        name="description"
+        rows="5"
+        placeholder="Write your blog content here"
+        required
+      ><%= formData.description || '' %></textarea>
+    </div>
+
+    <div class="d-flex gap-2">
+      <button type="submit" class="btn btn-accent">Publish Blog</button>
+      <a href="/blogs" class="btn btn-outline-soft">Cancel</a>
+    </div>
+  </form>
+</div>
+
+<%- include('../layouts/footer') %>

@@ -1,0 +1,89 @@
+<%- include('../layouts/header', { active: 'dashboard' }) %>
+
+<div class="d-flex flex-wrap justify-content-between align-items-end mb-4 gap-2">
+  <div>
+    <h1 class="page-heading">Welcome back, <%= currentUser.name %></h1>
+    <p class="page-subheading mb-0">Here's what's happening with your blogs today</p>
+  </div>
+  <div class="d-flex gap-2">
+    <a href="/blog/create" class="btn btn-accent"><i class="fa-solid fa-square-plus me-2"></i>New Blog</a>
+    <a href="/blogs" class="btn btn-outline-soft">View All</a>
+  </div>
+</div>
+
+<div class="row g-3 mb-4">
+  <div class="col-sm-6 col-lg-4">
+    <div class="stat-card">
+      <div class="stat-icon indigo"><i class="fa-solid fa-newspaper"></i></div>
+      <div>
+        <div class="stat-value"><%= totalBlogs %></div>
+        <div class="stat-label">Total Blogs</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-4">
+    <div class="stat-card">
+      <div class="stat-icon cyan"><i class="fa-solid fa-users"></i></div>
+      <div>
+        <div class="stat-value"><%= totalUsers %></div>
+        <div class="stat-label">Total Users</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-lg-4">
+    <div class="stat-card">
+      <div class="stat-icon amber"><i class="fa-solid fa-user-check"></i></div>
+      <div>
+        <div class="stat-value text-truncate" style="max-width: 180px;"><%= currentUser.name %></div>
+        <div class="stat-label">Logged In As</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="glass-card p-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h2 class="h5 mb-0">Recent Blogs</h2>
+    <a href="/blogs" class="text-secondary-soft" style="font-size:0.85rem;">View all <i class="fa-solid fa-arrow-right ms-1"></i></a>
+  </div>
+
+  <% if (recentBlogs.length === 0) { %>
+    <div class="empty-state">
+      <i class="fa-regular fa-folder-open"></i>
+      <p class="mb-3">No blogs created yet</p>
+      <a href="/blog/create" class="btn btn-accent btn-sm">Create your first blog</a>
+    </div>
+  <% } else { %>
+    <div class="table-responsive">
+      <table class="table-dark-glass">
+        <thead>
+          <tr>
+            <th>Blog</th>
+            <th>Category</th>
+            <th>Author</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% recentBlogs.forEach(function(blog) { %>
+            <tr>
+              <td>
+                <div class="d-flex align-items-center gap-2">
+                  <img src="<%= blog.imageUrl %>" class="table-thumb" alt="<%= blog.title %>">
+                  <span><%= blog.title %></span>
+                </div>
+              </td>
+              <td><span class="badge-category"><%= blog.category %></span></td>
+              <td><%= blog.author %></td>
+              <td><%= blog.createdAt.toDateString() %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include('../layouts/footer') %>

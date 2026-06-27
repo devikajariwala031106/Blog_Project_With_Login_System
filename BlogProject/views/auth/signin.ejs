@@ -1,0 +1,61 @@
+<%- include('../layouts/header', { layout: 'auth' }) %>
+
+<div class="glass-card auth-card">
+  <div class="auth-brand">
+    <span class="brand-mark">B</span>
+    <span class="brand-font fw-bold fs-5">BlogSphere</span>
+  </div>
+
+  <h1 class="auth-title">Welcome back</h1>
+  <p class="auth-subtitle">Sign in to continue to your dashboard</p>
+
+  <% if (errors && errors.length) { %>
+    <% errors.forEach(function(err) { %>
+      <div class="alert alert-glass alert-danger mb-2" role="alert"><%= err.msg %></div>
+    <% }) %>
+  <% } %>
+
+  <form action="/signin" method="POST" novalidate>
+    <div class="mb-3">
+      <label for="email" class="form-label">Email Address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="you@example.com"
+        value="<%= rememberedEmail || '' %>"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="Enter your password"
+        required
+      >
+    </div>
+
+    <div class="mb-4 form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        id="rememberMe"
+        name="rememberMe"
+        <%= rememberedEmail ? 'checked' : '' %>
+      >
+      <label class="form-check-label text-secondary-soft" for="rememberMe">Remember my email on this device</label>
+    </div>
+
+    <button type="submit" class="btn btn-accent w-100">Sign In</button>
+  </form>
+
+  <p class="auth-switch">Don't have an account? <a href="/signup">Sign Up</a></p>
+</div>
+
+<%- include('../layouts/footer', { layout: 'auth' }) %>

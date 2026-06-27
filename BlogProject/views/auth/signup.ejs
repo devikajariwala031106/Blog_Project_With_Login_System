@@ -1,0 +1,75 @@
+<%- include('../layouts/header', { layout: 'auth' }) %>
+
+<div class="glass-card auth-card">
+  <div class="auth-brand">
+    <span class="brand-mark">B</span>
+    <span class="brand-font fw-bold fs-5">BlogSphere</span>
+  </div>
+
+  <h1 class="auth-title">Create your account</h1>
+  <p class="auth-subtitle">Start writing and managing your blogs in minutes</p>
+
+  <% if (errors && errors.length) { %>
+    <% errors.forEach(function(err) { %>
+      <div class="alert alert-glass alert-danger mb-2" role="alert"><%= err.msg %></div>
+    <% }) %>
+  <% } %>
+
+  <form action="/signup" method="POST" novalidate>
+    <div class="mb-3">
+      <label for="name" class="form-label">Full Name</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        name="name"
+        placeholder="Enter your name"
+        value="<%= formData.name || '' %>"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="email" class="form-label">Email Address</label>
+      <input
+        type="email"
+        class="form-control"
+        id="email"
+        name="email"
+        placeholder="you@example.com"
+        value="<%= formData.email || '' %>"
+        required
+      >
+    </div>
+
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="password"
+        name="password"
+        placeholder="At least 6 characters"
+        required
+      >
+    </div>
+
+    <div class="mb-4">
+      <label for="confirmPassword" class="form-label">Confirm Password</label>
+      <input
+        type="password"
+        class="form-control"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Re-enter your password"
+        required
+      >
+    </div>
+
+    <button type="submit" class="btn btn-accent w-100">Sign Up</button>
+  </form>
+
+  <p class="auth-switch">Already have an account? <a href="/signin">Sign In</a></p>
+</div>
+
+<%- include('../layouts/footer', { layout: 'auth' }) %>
